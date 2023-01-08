@@ -1,0 +1,125 @@
+*:where(:not(iframe, canvas, img, svg, video):not(svg *)) {
+  all: unset;
+  display: revert;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #141414;
+  color: #fff;
+  line-height: 1.5;
+  font-weight: 300;
+}
+figure {
+  margin-block-start: 0;
+  margin-block-end: 0;
+  margin-inline-start: 0;
+  margin-inline-end: 0;
+}
+img {
+  display: block;
+  margin: auto;
+  max-width: 100%;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  aspect-ratio: 1192 / 753;
+  max-width: 1192px;
+  margin: 0 auto;
+}
+
+.clip {
+  grid-column: 1/-1;
+  grid-row: 1/-1;
+  transition: clip-path 0.4s ease-in-out;
+  &--01 {
+    clip-path: polygon(0 0, 28% 0, 30% 29%, 0 34%);
+  }
+  &--02 {
+    clip-path: polygon(30% 0, 67% 0, 70% 31%, 33% 27%);
+  }
+  &--03 {
+    clip-path: polygon(69% 0, 100% 0, 100% 36%, 73% 28%);
+  }
+  &--04 {
+    clip-path: polygon(0 36%, 28% 33%, 34% 67%, 0 63%);
+  }
+  &--05 {
+    clip-path: polygon(32% 29%, 63% 35%, 60% 62%, 36% 63%);
+  }
+  &--06 {
+    clip-path: polygon(66% 37%, 100% 40%, 100% 61%, 63% 64%);
+  }
+  &--07 {
+    clip-path: polygon(0 66%, 34% 70%, 27% 100%, 0 100%);
+  }
+  &--08 {
+    clip-path: polygon(36% 67%, 69% 68%, 58% 100%, 30% 100%);
+  }
+  &--09 {
+    clip-path: polygon(73% 66%, 100% 65%, 100% 100%, 61% 100%);
+  }
+
+  &__figure {
+    cursor: pointer;
+  }
+
+  display: grid;
+  &__content,
+  &__figure {
+    grid-row: 1/-1;
+    grid-column: 1/-1;
+  }
+  &__content {
+    width: min(300px, 90vw);
+    background: rgba(0, 0, 0, 0.94);
+    z-index: 3;
+    padding: min(1rem, 3vw);
+
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    transition: clip-path 0.4s ease-in-out 0s;
+
+    &-title {
+      font-size: min(2rem, 6vw);
+      line-height: 1;
+      margin-bottom: 2rem;
+      text-transform: uppercase;
+    }
+    p {
+      transform: skew(20deg, 12deg) translate(30px, 10px);
+      line-height: 2;
+      color: transparent;
+      margin-bottom: 0.7rem;
+      transition: all 0.2s ease 0s;
+    }
+  }
+}
+
+// toggle states
+.clip {
+  &:focus-within {
+    z-index: 3;
+  }
+  toggle-root: clip;
+  &__figure {
+    toggle-trigger: clip;
+  }
+  &:toggle(clip) {
+    z-index: 1;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    .clip__content {
+      transition: clip-path 0.4s ease-in-out 0.55s;
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+      p {
+        transform: skew(0, 0) translate(0, 0);
+        line-height: 1.5;
+        color: #fff;
+        transition: all 0.2s ease 1s;
+      }
+    }
+  }
+}
